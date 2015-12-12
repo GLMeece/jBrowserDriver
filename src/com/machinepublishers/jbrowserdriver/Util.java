@@ -101,13 +101,14 @@ class Util {
         browserFatal = t;
       } catch (Browser.Retry t) {
         browserRetry = t;
-      }
-      synchronized (done) {
-        fatal.set(browserFatal);
-        retry.set(browserRetry);
-        returned.set(result);
-        done.set(true);
-        done.notifyAll();
+      } finally {
+        synchronized (done) {
+          fatal.set(browserFatal);
+          retry.set(browserRetry);
+          returned.set(result);
+          done.set(true);
+          done.notifyAll();
+        }
       }
     }
   }

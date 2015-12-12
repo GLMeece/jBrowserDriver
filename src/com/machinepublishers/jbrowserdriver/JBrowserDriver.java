@@ -147,7 +147,8 @@ public class JBrowserDriver implements Browser {
   @Override
   public String getPageSource() {
     init();
-    return Element.create(context).findElementByTagName("html").getAttribute("outerHTML");
+    WebElement element = Element.create(context).findElementByTagName("html");
+    return element == null ? null : element.getAttribute("outerHTML");
   }
 
   @Override
